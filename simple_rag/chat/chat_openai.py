@@ -35,19 +35,19 @@ class ChatOpenAI:
 
     def request(
         self,
-        prompt: str,
-        question: str,
+        system_prompt: str,
+        user_prompt: str,
         temperature=0.1,
         top_p=0.95,
         max_tokens=1024,
         **kwargs,
     ):
         """
-        Sends a request to the OpenAI API with the provided prompt and question.
+        Sends a request to the OpenAI API with the provided system prompt and user prompt.
 
         Args:
-            prompt (str): The system prompt to set the context.
-            question (str): The user's question to get a response for.
+            system_prompt (str): The system prompt to set the context.
+            user_prompt (str): The user's question to get a response for.
             temperature (float): Sampling temperature to control the randomness of the response. Default is 0.1.
             top_p (float): The cumulative probability of token selection. Default is 0.95.
             max_tokens (int): The maximum number of tokens to generate. Default is 1024.
@@ -59,11 +59,11 @@ class ChatOpenAI:
         message = [
             {
                 "role": "system",
-                "content": prompt,
+                "content": system_prompt,
             },
             {
                 "role": "user",
-                "content": question,
+                "content": user_prompt,
             },
         ]
         response = self.client.chat.completions.create(
@@ -74,10 +74,16 @@ class ChatOpenAI:
             max_tokens=max_tokens,
             **kwargs,
         )
-
+        raw_output = response.choices[0].message.content
+        try:
+            fine_output = json.loads(raw_output)
+        except Exception as e:
+            print(f"👾 Warning: Failed to refine the output of LLM because: {e}")
+            fine_output = raw_output
+        
         result = {
             "request_id": response.id,
-            "output": json.loads(response.choices[0].message.content),
+            "output": fine_output,
             "completion_tokens": response.usage.completion_tokens,
             "prompt_tokens": response.usage.prompt_tokens,
             "total_tokens": response.usage.total_tokens,
