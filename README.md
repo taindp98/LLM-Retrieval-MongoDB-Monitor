@@ -1,4 +1,5 @@
 <h1>
+  <img alt="lograg_bg" src="./docs/images/lograg_bg.png" style="width: 100%;">
   <p align="center">
 	Enhanced Retrieval and MongoDB Monitoring
   </p>
