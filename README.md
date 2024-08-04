@@ -1,4 +1,8 @@
-# OpenAI-Usage-Report
+<h1>
+  <p align="center">
+	Enhanced Retrieval and MongoDB Monitoring
+  </p>
+</h1>
 
 ## Project Organization
 
