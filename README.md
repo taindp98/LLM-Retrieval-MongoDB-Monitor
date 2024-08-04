@@ -16,7 +16,6 @@
 ## Table of Contents
 
 - [Update](#update)
-- [System Design](#system-design)
 - [Quickstart](#quickstart)
 - [Contributing](#contributing)
 
