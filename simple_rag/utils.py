@@ -63,3 +63,18 @@ def insert_to_db(collection, data: dict):
         print("🔥 Successfully Log Request to Database")
     except Exception as e:
         print(f"👾 Fail To Log Request to Database because {e}")
+
+def query_collection(collection, query: dict= {}):
+    """
+    Queries the MongoDB collection with the specified query.
+
+    Args:
+        query (dict): The MongoDB query.
+
+    Returns:
+        list: A list of documents that match the query.
+    """
+    results = collection.find(query)
+    return list(results)
+
+
