@@ -20,7 +20,7 @@
 - [Contributing](#contributing)
 
 ## Update
-- [08/2024]: We released the first version of the codebase for tracking OpenAI API usage.
+- [08/2024]: Tracking OpenAI API usage for both text [`ChatOpenAI`](/simple_rag/chat/chat_openai.py) and vision [`ChatOpenAIVision`](/simple_rag/chat/chat_openai.py) requests.
 
 ## Quickstart
 
