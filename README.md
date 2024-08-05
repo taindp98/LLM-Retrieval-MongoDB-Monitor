@@ -100,7 +100,20 @@ the output follows:
 
 ```bash
 🔥 Successfully Log Request to Database
-{'request_id': 'chatcmpl-9sPkkwmcz7pIsU3hLH3Zz9vYRT70O', 'output': {'description': ['A fluffy British Shorthair cat lounges lazily on a plush velvet armchair.', 'Its round face and large, expressive eyes give off an air of gentle curiosity.', "The cat's dense, plush coat in shades of blue-grey exudes a luxurious appearance.", "Sunlight filters through a nearby window, casting a warm glow on the cat's fur."]}, 'completion_tokens': 80, 'prompt_tokens': 217, 'total_tokens': 297}
+{
+    'request_id': 'chatcmpl-9sPkkwmcz7pIsU3hLH3Zz9vYRT70O',
+    'output': {
+        'description': [
+            'A fluffy British Shorthair cat lounges lazily on a plush velvet armchair.',
+            'Its round face and large, expressive eyes give off an air of gentle curiosity.',
+            "The cat's dense, plush coat in shades of blue-grey exudes a luxurious appearance.",
+            "Sunlight filters through a nearby window, casting a warm glow on the cat's fur."
+        ]
+    },
+    'completion_tokens': 80,
+    'prompt_tokens': 217,
+    'total_tokens': 297
+}
 ```
 
 Dashboard of MongoDB should be looked like
