@@ -20,7 +20,8 @@
 - [Contributing](#contributing)
 
 ## Update
-- [08/2024]: Tracking OpenAI API usage for both text [`ChatOpenAI`](/simple_rag/chat/chat_openai.py) and vision [`ChatOpenAIVision`](/simple_rag/chat/chat_openai.py) requests.
+- [TBD]: Support more LLM APIs providers.
+- [08/2024]: Track OpenAI API usage for both text [`ChatOpenAI`](/simple_rag/chat/chat_openai.py) and vision [`ChatOpenAIVision`](/simple_rag/chat/chat_openai.py) requests.
 
 ## Quickstart
 
