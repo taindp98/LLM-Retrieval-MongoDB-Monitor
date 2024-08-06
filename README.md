@@ -54,6 +54,8 @@ The structure of source code:
 Let’s install the library
 
 ```bash
+git clone https://github.com/taindp98/Loggify-LLM.git
+cd Loggify-LLM
 pip install -r requirements.txt
 ```
 
