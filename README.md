@@ -27,7 +27,7 @@ Loggify-LLM is a robust logging module designed to capture and manage API reques
 
 ## Quickstart
 
-To re-product the project, please refer to the repository
+The structure of source code:
 
 ```
 ├── LICENSE            <- Open-source license if one is chosen
@@ -47,9 +47,6 @@ To re-product the project, please refer to the repository
     │
     ├── __init__.py    <- Makes loggify_llm a Python module
 ```
-
-The structure of source code:
-
 
 Let’s install the library
 
