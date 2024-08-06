@@ -105,9 +105,7 @@ An example for logging a certain LLM request:
 
 ```python
 from loggify_llm.chat.chat_openai import ChatOpenAI
-from loggify_llm.mongodb import MongoDBLogger
 
-mongo_logger = MongoDBLogger()
 llm = ChatOpenAI()
 
 system_prompt = """
