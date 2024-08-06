@@ -11,6 +11,7 @@ from loggify_llm.mongodb import MongoDBLogger
 
 load_dotenv()
 
+
 class ChatOpenAI:
     """
     A class to interact with OpenAI's language model for generating chat responses.
@@ -236,7 +237,7 @@ class ChatOpenAIVision:
             "total_tokens": response.usage.total_tokens,
         }
         self.mongo_logger.insert_to_db(data=result)
-        
+
         return result
 
 
