@@ -3,7 +3,7 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-name = "simple_rag"
+name = "loggify_llm"
 version = "0.0.1"
 description = "A short description of the project."
 authors = [
@@ -28,5 +28,5 @@ exclude = '''
 '''
 
 [tool.ruff.lint.isort]
-known_first_party = ["simple_rag"]
+known_first_party = ["loggify_llm"]
 force_sort_within_sections = true

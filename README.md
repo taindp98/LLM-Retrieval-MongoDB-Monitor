@@ -21,7 +21,7 @@
 
 ## Update
 - [TBD]: Support more LLM APIs providers.
-- [08/2024]: Track OpenAI API usage for both text [`ChatOpenAI`](/simple_rag/chat/chat_openai.py) and vision [`ChatOpenAIVision`](/simple_rag/chat/chat_openai.py) requests.
+- [08/2024]: Track OpenAI API usage for both text [`ChatOpenAI`](/loggify_llm/chat/chat_openai.py) and vision [`ChatOpenAIVision`](/loggify_llm/chat/chat_openai.py) requests.
 
 ## Quickstart
 
@@ -35,15 +35,15 @@ To re-product the project, please refer to the repository
 │                         the creator's initials, and a short `-` delimited description, e.g.
 │                         `1.0-jqp-initial-data-exploration`.
 │
-├── pyproject.toml     <- Project configuration file with package metadata for simple_rag
+├── pyproject.toml     <- Project configuration file with package metadata for loggify_llm
 ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
 │                         generated with `pip freeze > requirements.txt`
 │
 ├── setup.cfg          <- Configuration file for flake8
 │
-└── simple_rag                <- Source code for use in this project.
+└── loggify_llm                <- Source code for use in this project.
     │
-    ├── __init__.py    <- Makes simple_rag a Python module
+    ├── __init__.py    <- Makes loggify_llm a Python module
 ```
 
 The structure of source code:
@@ -72,8 +72,8 @@ PASSWD=<provided-password>
 An example for logging a certain LLM request:
 
 ```python
-from simple_rag.chat.chat_openai import ChatOpenAI
-from simple_rag.utils import connect_to_database, insert_to_db
+from loggify_llm.chat.chat_openai import ChatOpenAI
+from loggify_llm.utils import connect_to_database, insert_to_db
 
 collection = connect_to_database()
 
