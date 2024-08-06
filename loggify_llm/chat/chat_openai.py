@@ -7,8 +7,9 @@ import base64
 import requests
 from IPython.display import Image, display
 
-load_dotenv()
+from loggify_llm.mongodb import MongoDBLogger
 
+load_dotenv()
 
 class ChatOpenAI:
     """
@@ -35,6 +36,7 @@ class ChatOpenAI:
         assert open_api_key, "OPENAI_API_KEY environment variable not set"
         self.client = OpenAI(api_key=open_api_key)
         self.llm_model = llm_model
+        self.mongo_logger = MongoDBLogger()
 
     def request(
         self,
@@ -93,6 +95,9 @@ class ChatOpenAI:
             "prompt_tokens": response.usage.prompt_tokens,
             "total_tokens": response.usage.total_tokens,
         }
+
+        self.mongo_logger.insert_to_db(data=result)
+
         return result
 
 
@@ -128,6 +133,7 @@ class ChatOpenAIVision:
         }
         self.client = OpenAI(api_key=open_api_key)
         self.llm_model = llm_model
+        self.mongo_logger = MongoDBLogger()
 
     def encode_image(self, image_path):
         """
@@ -229,6 +235,8 @@ class ChatOpenAIVision:
             "prompt_tokens": response.usage.prompt_tokens,
             "total_tokens": response.usage.total_tokens,
         }
+        self.mongo_logger.insert_to_db(data=result)
+        
         return result
 
 

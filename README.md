@@ -92,7 +92,6 @@ system_prompt = """
         Answer: "description": ["A round-bellied seal sits on a rock, looking intently at something off-camera.", "The seal lies with flippers tucked, sleek body well-maintained.", "The seal's thick, smooth fur and large dark eyes show alertness and curiosity.", "Turquoise water contrasts with the seal's brown fur and grey rock, highlighting its natural environment."]
 """
 response = llm.request(system_prompt=system_prompt, user_prompt="British shorthair")
-mongo_logger.insert_to_db(data=response)
 print(response)
 ```
 
