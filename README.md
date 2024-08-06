@@ -75,7 +75,7 @@ An example for logging a certain LLM request:
 
 ```python
 from loggify_llm.chat.chat_openai import ChatOpenAI
-from loggify_llm.utils import connect_to_database, insert_to_db
+from loggify_llm.mongodb import connect_to_database, insert_to_db
 
 collection = connect_to_database()
 

@@ -59,7 +59,7 @@ class ChatOpenAI:
         Returns:
             dict: A dictionary containing the request ID, output, completion tokens, prompt tokens, and total tokens.
         """
-        message = [
+        messages = [
             {
                 "role": "system",
                 "content": system_prompt,
@@ -70,7 +70,7 @@ class ChatOpenAI:
             },
         ]
         response = self.client.chat.completions.create(
-            messages=message,
+            messages=messages,
             model=self.llm_model,
             temperature=temperature,
             top_p=top_p,
@@ -86,6 +86,8 @@ class ChatOpenAI:
 
         result = {
             "request_id": response.id,
+            "llm_model": self.llm_model,
+            "input": messages,
             "output": fine_output,
             "completion_tokens": response.usage.completion_tokens,
             "prompt_tokens": response.usage.prompt_tokens,
@@ -146,7 +148,7 @@ class ChatOpenAIVision:
         user_prompt: str,
         max_tokens: int = 1024,
         temperature: float = 1e-4,
-        show_preview: bool=False
+        show_preview: bool = False,
     ):
         """
         Sends a request to the OpenAI API with the provided prompt and image URL or file path, and returns the response.
@@ -164,41 +166,43 @@ class ChatOpenAIVision:
         if "http" in image_url:
             if show_preview:
                 display(Image(url=image_url))
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": f"{user_prompt}"},
+                        {
+                            "type": "image_url",
+                            "image_url": image_url,
+                        },
+                    ],
+                }
+            ]
             response = self.client.chat.completions.create(
                 model=self.llm_model,
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": f"{user_prompt}"},
-                            {
-                                "type": "image_url",
-                                "image_url": image_url,
-                            },
-                        ],
-                    }
-                ],
+                messages=messages,
                 max_tokens=max_tokens,
             )
         else:
             if show_preview:
                 display(Image(filename=image_url))
             base64_image = self.encode_image(image_url)
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": f"{user_prompt}?"},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"},
+                        },
+                    ],
+                }
+            ]
             payload = {
                 "model": self.llm_model,
                 "temperature": temperature,
-                "messages": [
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": f"{user_prompt}?"},
-                            {
-                                "type": "image_url",
-                                "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"},
-                            },
-                        ],
-                    }
-                ],
+                "messages": messages,
                 "max_tokens": max_tokens,
             }
             response = requests.post(
@@ -218,12 +222,15 @@ class ChatOpenAIVision:
 
         result = {
             "request_id": response.id,
+            "llm_model": self.llm_model,
+            "input": messages,
             "output": fine_output,
             "completion_tokens": response.usage.completion_tokens,
             "prompt_tokens": response.usage.prompt_tokens,
             "total_tokens": response.usage.total_tokens,
         }
         return result
+
 
 class DotDict(dict):
     """A dictionary with dot notation access."""
