@@ -1,7 +1,7 @@
 <h1>
   <img alt="lograg_bg" src="./docs/images/lograg_bg.png" style="width: 100%;">
   <p align="center">
-	Empower RAG Request with MongoDB Monitoring
+	Loggify-LLM
   </p>
 </h1>
 
@@ -12,6 +12,8 @@
         <img alt="Jupyter Notebook" src="https://img.shields.io/badge/Jupyter_Notebook-F37626?logo=jupyter&logoColor=white&style=flat" />
     </a>
 </p>
+
+Loggify-LLM is a robust logging module designed to capture and manage API requests for large language models. Enhance your project's observability and debugging capabilities with seamless request tracking and detailed logging.
 
 ## Table of Contents
 
