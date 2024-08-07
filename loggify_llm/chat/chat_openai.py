@@ -97,7 +97,10 @@ class ChatOpenAI:
             "total_tokens": response.usage.total_tokens,
         }
 
-        self.mongo_logger.insert_to_db(data=result)
+        try:
+            self.mongo_logger.insert_to_db(data=result)
+        except Exception as e:
+            print(f"👾 Warning: Failed to insert DB because: {e}")
 
         return result
 
@@ -236,7 +239,11 @@ class ChatOpenAIVision:
             "prompt_tokens": response.usage.prompt_tokens,
             "total_tokens": response.usage.total_tokens,
         }
-        self.mongo_logger.insert_to_db(data=result)
+
+        try:
+            self.mongo_logger.insert_to_db(data=result)
+        except Exception as e:
+            print(f"👾 Warning: Failed to insert DB because: {e}")
 
         return result
 
