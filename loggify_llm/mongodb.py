@@ -6,6 +6,7 @@ from datetime import datetime
 import zlib
 import copy
 import json
+import pandas as pd
 
 load_dotenv()
 
@@ -96,3 +97,62 @@ class MongoDBLogger:
                     res[k] = self._decompress_messages(res[k])
             fine_results.append(res)
         return fine_results
+    def estimate_cost(self, records: list):
+        """
+        Estimates the total cost of using various language models based on token usage.
+
+        This function calculates the cost associated with using different language models
+        (LLMs) by considering the number of prompt and completion tokens used, along with
+        the associated cost per token for each model. The cost is calculated in dollars 
+        based on a pricing structure defined for each model.
+
+        Args:
+            records (list): A list of dictionaries where each dictionary contains information
+                            about the usage of an LLM, including the model name (`llm_model`), 
+                            the number of prompt tokens used (`prompt_tokens`), and the number 
+                            of completion tokens generated (`completion_tokens`).
+
+        Returns:
+            float: The total estimated cost in dollars for using the LLMs across all records.
+        """
+        # Pricing per 1M tokens for different models
+        # Ref: https://openai.com/api/pricing/
+        unit_cost = {
+            "gpt-3.5-turbo": {
+                "prompt_tokens": 3,
+                "completion_tokens": 6,
+            },
+            "gpt-4o-mini-2024-07-18**": {
+                "prompt_tokens": 0.3,
+                "completion_tokens": 1.2,
+            },
+            "gpt-4-vision-preview": {
+                "prompt_tokens": 10,
+                "completion_tokens": 30,
+            }
+        }
+        # Convert the records list into a DataFrame for easier processing
+        df_total = pd.DataFrame(records)
+        
+        # Get a list of unique LLM models used in the records
+        unique_llm_models = df_total["llm_model"].unique().tolist()
+        
+        # Initialize the total cost to zero
+        total_cost = 0
+        
+        # Loop through each LLM model to calculate the cost
+        for llm_model in unique_llm_models:
+            df_ = df_total[df_total["llm_model"] == llm_model]
+            
+            # Calculate the cost for prompt tokens
+            prompt_tokens_cost = df_["prompt_tokens"].sum() * unit_cost[llm_model]["prompt_tokens"] * 1e-6
+            
+            # Calculate the cost for completion tokens
+            completion_tokens_cost = df_["completion_tokens"].sum() * unit_cost[llm_model]["completion_tokens"] * 1e-6
+            
+            # Add the calculated costs to the total cost
+            total_cost += prompt_tokens_cost
+            total_cost += completion_tokens_cost
+
+        # Return the total estimated cost in dollars
+        return total_cost
